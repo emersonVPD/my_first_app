@@ -1,0 +1,40 @@
+                             $permit_file_1 = $request->file('permit_file_1'); // Get the uploaded file
+    $permit_file_2 = $request->file('permit_file_2'); // Get the uploaded file
+    $permit_file_3 = $request->file('permit_file_3'); // Get the uploaded file
+    $permit_file_4 = $request->file('permit_file_4'); // Get the uploaded file
+
+if ($permit_file_1) {
+    $now = Carbon::now()->format('mdyH');
+    $folderPath = 'supplier_files/permit'; // Company and branch path for employee files
+
+    if (!File::exists($folderPath)) {
+        File::makeDirectory($folderPath, 0755, true, true);
+    }
+
+    $origname = $permit_file_1->getClientOriginalName();
+    $fileName = $now . '_' . $permit_file_1->getClientOriginalName();
+    $filePath = $permit_file_1->move($folderPath, $fileName);
+    $save_url = $folderPath . '/' . $fileName;
+
+    business_registries::create([
+        'supplier_id' => $supplier->id,
+        'br_permit_no_1' => $request->br_permit_no_1,
+        'br_permit_no_2' => $request->br_permit_no_2,
+        'br_permit_no_3' => $request->br_permit_no_3,
+        'br_permit_no_4' => $request->br_permit_no_4,
+        'br_date_issued_1' => $request->br_date_issued_1,
+        'br_date_issued_2' => $request->br_date_issued_2,
+        'br_date_issued_3' => $request->br_date_issued_3,
+        'br_date_issued_4' => $request->br_date_issued_4,
+        'br_expi_date_1' => $request->br_expi_date_1,
+        'br_expi_date_2' => $request->br_expi_date_2,
+        'br_expi_date_3' => $request->br_expi_date_3,
+        'br_expi_date_4' => $request->br_expi_date_4,
+        'permit_file_1' => $save_url, // Save the file path, not the request
+    ]);
+
+    return redirect()->route('supplier.index')->with('message', 'Success Insert');
+} else {
+    // Handle the case where no file was uploaded
+    return redirect()->back()->with('error', 'No file uploaded.');
+}

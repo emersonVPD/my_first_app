@@ -1,0 +1,30 @@
+date - datesub
+string - company_name
+string - company_addr
+integer - company_phone
+string - plant_ware
+integer - fax_no
+string - email
+string - tob
+string - auth_capital
+integer - yrs_business
+string - nature_business
+string - prod_lines
+string - src_materials
+string - principal_addrs
+
+
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(255),
+    -- Other customer-related columns
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    order_date DATE,
+    customer_id INT,
+    -- Other order-related columns,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+

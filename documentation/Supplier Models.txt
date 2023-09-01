@@ -1,0 +1,16 @@
+Supplier Models/Supplier
+
+supplier - Parent
+major_customer_present
+major_3_products
+business_registry
+permit
+
+
+orders - parent
+invoice - child
+
+121327039798
+
+
+
