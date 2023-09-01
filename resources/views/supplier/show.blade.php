@@ -2,7 +2,7 @@
 @section('title')
     Supplier Form
 @endsection
-@section('content')
+@section('content')4444
 
     <div class="container mt-5 border">
         <img src="../images/BullaCraveLogo.jpg" height="250px" width="100%" class="mt-3">
